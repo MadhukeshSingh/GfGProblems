@@ -10,19 +10,22 @@ class Solution
     public:
     bool isFrequencyUnique(int n, int arr[])
     {
-         unordered_map<int, int> mp1;
-        vector<bool> exist(n+1, false);
-        
-        for(int i = 0; i < n; i++) {
+        unordered_map<int, int> mp1;
+        vector<int> freq;
+
+        for (int i = 0; i < n; i++) {
             mp1[arr[i]]++;
         }
-        
-        for(auto el : mp1) {
-            if(exist[el.second]) {
+
+        for (auto el : mp1) {
+            freq.push_back(el.second);
+        }
+        sort(freq.begin(), freq.end());
+
+        for (int i = 1; i < freq.size(); i++) {
+            if (freq[i] == freq[i - 1]) {
                 return false;
             }
-            
-            exist[el.second] = true;
         }
         
         return true;
